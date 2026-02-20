@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1230"
    version = "1.3">
@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "01138ACB27F1BDD300734060"
                BuildableName = "lib1F5DF16EE1BF43B999A434ED38FE8F3A.dylib"
-               BlueprintName = "Dynamic"
+               BlueprintName = "Dynamic x86_64"
                ReferencedContainer = "container:Eco.Lab1.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
