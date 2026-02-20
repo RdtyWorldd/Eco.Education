@@ -19,6 +19,18 @@
 		01138AE827F1BE4900734060 /* CEcoLab1.c in Sources */ = {isa = PBXBuildFile; fileRef = 01138AE527F1BE4900734060 /* CEcoLab1.c */; };
 		01138AE927F1BE4900734060 /* CEcoLab1Factory.c in Sources */ = {isa = PBXBuildFile; fileRef = 01138AE627F1BE4900734060 /* CEcoLab1Factory.c */; };
 		01138AEA27F1BE4900734060 /* CEcoLab1Factory.c in Sources */ = {isa = PBXBuildFile; fileRef = 01138AE627F1BE4900734060 /* CEcoLab1Factory.c */; };
+		01B2548B2F48920B00FC41B0 /* IdEcoLab1.h in Headers */ = {isa = PBXBuildFile; fileRef = 01138ADE27F1BE2C00734060 /* IdEcoLab1.h */; };
+		01B2548C2F48920B00FC41B0 /* CEcoLab1Factory.h in Headers */ = {isa = PBXBuildFile; fileRef = 01138AD527F1BE1A00734060 /* CEcoLab1Factory.h */; };
+		01B2548D2F48920B00FC41B0 /* IEcoLab1.h in Headers */ = {isa = PBXBuildFile; fileRef = 01138ADD27F1BE2C00734060 /* IEcoLab1.h */; };
+		01B2548E2F48920B00FC41B0 /* CEcoLab1.h in Headers */ = {isa = PBXBuildFile; fileRef = 01138AD627F1BE1A00734060 /* CEcoLab1.h */; };
+		01B254902F48920B00FC41B0 /* CEcoLab1.c in Sources */ = {isa = PBXBuildFile; fileRef = 01138AE527F1BE4900734060 /* CEcoLab1.c */; };
+		01B254912F48920B00FC41B0 /* CEcoLab1Factory.c in Sources */ = {isa = PBXBuildFile; fileRef = 01138AE627F1BE4900734060 /* CEcoLab1Factory.c */; };
+		01B254992F48924300FC41B0 /* IdEcoLab1.h in Headers */ = {isa = PBXBuildFile; fileRef = 01138ADE27F1BE2C00734060 /* IdEcoLab1.h */; };
+		01B2549A2F48924300FC41B0 /* CEcoLab1Factory.h in Headers */ = {isa = PBXBuildFile; fileRef = 01138AD527F1BE1A00734060 /* CEcoLab1Factory.h */; };
+		01B2549B2F48924300FC41B0 /* IEcoLab1.h in Headers */ = {isa = PBXBuildFile; fileRef = 01138ADD27F1BE2C00734060 /* IEcoLab1.h */; };
+		01B2549C2F48924300FC41B0 /* CEcoLab1.h in Headers */ = {isa = PBXBuildFile; fileRef = 01138AD627F1BE1A00734060 /* CEcoLab1.h */; };
+		01B2549E2F48924300FC41B0 /* CEcoLab1.c in Sources */ = {isa = PBXBuildFile; fileRef = 01138AE527F1BE4900734060 /* CEcoLab1.c */; };
+		01B2549F2F48924300FC41B0 /* CEcoLab1Factory.c in Sources */ = {isa = PBXBuildFile; fileRef = 01138AE627F1BE4900734060 /* CEcoLab1Factory.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +42,8 @@
 		01138ADE27F1BE2C00734060 /* IdEcoLab1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IdEcoLab1.h; path = ../../../SharedFiles/IdEcoLab1.h; sourceTree = "<group>"; };
 		01138AE527F1BE4900734060 /* CEcoLab1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = CEcoLab1.c; path = ../../../SourceFiles/CEcoLab1.c; sourceTree = "<group>"; };
 		01138AE627F1BE4900734060 /* CEcoLab1Factory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = CEcoLab1Factory.c; path = ../../../SourceFiles/CEcoLab1Factory.c; sourceTree = "<group>"; };
+		01B254962F48920B00FC41B0 /* lib1F5DF16EE1BF43B999A434ED38FE8F3A.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = lib1F5DF16EE1BF43B999A434ED38FE8F3A.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		01B254A42F48924300FC41B0 /* lib1F5DF16EE1BF43B999A434ED38FE8F3A.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = lib1F5DF16EE1BF43B999A434ED38FE8F3A.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +55,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		01138ACA27F1BDD300734060 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		01B254922F48920B00FC41B0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		01B254A02F48924300FC41B0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -65,6 +93,8 @@
 			children = (
 				01138AC027F1BDA600734060 /* lib1F5DF16EE1BF43B999A434ED38FE8F3A.a */,
 				01138ACC27F1BDD300734060 /* lib1F5DF16EE1BF43B999A434ED38FE8F3A.dylib */,
+				01B254962F48920B00FC41B0 /* lib1F5DF16EE1BF43B999A434ED38FE8F3A.a */,
+				01B254A42F48924300FC41B0 /* lib1F5DF16EE1BF43B999A434ED38FE8F3A.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -121,12 +151,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		01B2548A2F48920B00FC41B0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01B2548B2F48920B00FC41B0 /* IdEcoLab1.h in Headers */,
+				01B2548C2F48920B00FC41B0 /* CEcoLab1Factory.h in Headers */,
+				01B2548D2F48920B00FC41B0 /* IEcoLab1.h in Headers */,
+				01B2548E2F48920B00FC41B0 /* CEcoLab1.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		01B254982F48924300FC41B0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01B254992F48924300FC41B0 /* IdEcoLab1.h in Headers */,
+				01B2549A2F48924300FC41B0 /* CEcoLab1Factory.h in Headers */,
+				01B2549B2F48924300FC41B0 /* IEcoLab1.h in Headers */,
+				01B2549C2F48924300FC41B0 /* CEcoLab1.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		01138ABF27F1BDA600734060 /* Static */ = {
+		01138ABF27F1BDA600734060 /* Static x86_64 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 01138AC427F1BDA600734060 /* Build configuration list for PBXNativeTarget "Static" */;
+			buildConfigurationList = 01138AC427F1BDA600734060 /* Build configuration list for PBXNativeTarget "Static x86_64" */;
 			buildPhases = (
 				01138ABC27F1BDA600734060 /* Headers */,
 				01138ABD27F1BDA600734060 /* Sources */,
@@ -136,14 +188,14 @@
 			);
 			dependencies = (
 			);
-			name = Static;
+			name = "Static x86_64";
 			productName = Eco.Lab1;
 			productReference = 01138AC027F1BDA600734060 /* lib1F5DF16EE1BF43B999A434ED38FE8F3A.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		01138ACB27F1BDD300734060 /* Dynamic */ = {
+		01138ACB27F1BDD300734060 /* Dynamic x86_64 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 01138ACD27F1BDD300734060 /* Build configuration list for PBXNativeTarget "Dynamic" */;
+			buildConfigurationList = 01138ACD27F1BDD300734060 /* Build configuration list for PBXNativeTarget "Dynamic x86_64" */;
 			buildPhases = (
 				01138AC827F1BDD300734060 /* Headers */,
 				01138AC927F1BDD300734060 /* Sources */,
@@ -153,9 +205,43 @@
 			);
 			dependencies = (
 			);
-			name = Dynamic;
+			name = "Dynamic x86_64";
 			productName = Dynamic;
 			productReference = 01138ACC27F1BDD300734060 /* lib1F5DF16EE1BF43B999A434ED38FE8F3A.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		01B254892F48920B00FC41B0 /* Static arm64 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 01B254932F48920B00FC41B0 /* Build configuration list for PBXNativeTarget "Static arm64" */;
+			buildPhases = (
+				01B2548A2F48920B00FC41B0 /* Headers */,
+				01B2548F2F48920B00FC41B0 /* Sources */,
+				01B254922F48920B00FC41B0 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Static arm64";
+			productName = Eco.Lab1;
+			productReference = 01B254962F48920B00FC41B0 /* lib1F5DF16EE1BF43B999A434ED38FE8F3A.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		01B254972F48924300FC41B0 /* Dynamic arm64 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 01B254A12F48924300FC41B0 /* Build configuration list for PBXNativeTarget "Dynamic arm64" */;
+			buildPhases = (
+				01B254982F48924300FC41B0 /* Headers */,
+				01B2549D2F48924300FC41B0 /* Sources */,
+				01B254A02F48924300FC41B0 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Dynamic arm64";
+			productName = Dynamic;
+			productReference = 01B254A42F48924300FC41B0 /* lib1F5DF16EE1BF43B999A434ED38FE8F3A.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -174,6 +260,12 @@
 						CreatedOnToolsVersion = 12.3;
 						ProvisioningStyle = Automatic;
 					};
+					01B254892F48920B00FC41B0 = {
+						ProvisioningStyle = Automatic;
+					};
+					01B254972F48924300FC41B0 = {
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 01138ABB27F1BDA600734060 /* Build configuration list for PBXProject "Eco.Lab1" */;
@@ -189,8 +281,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				01138ABF27F1BDA600734060 /* Static */,
-				01138ACB27F1BDD300734060 /* Dynamic */,
+				01138ABF27F1BDA600734060 /* Static x86_64 */,
+				01138ACB27F1BDD300734060 /* Dynamic x86_64 */,
+				01B254892F48920B00FC41B0 /* Static arm64 */,
+				01B254972F48924300FC41B0 /* Dynamic arm64 */,
 			);
 		};
 /* End PBXProject section */
@@ -211,6 +305,24 @@
 			files = (
 				01138AE827F1BE4900734060 /* CEcoLab1.c in Sources */,
 				01138AEA27F1BE4900734060 /* CEcoLab1Factory.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		01B2548F2F48920B00FC41B0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01B254902F48920B00FC41B0 /* CEcoLab1.c in Sources */,
+				01B254912F48920B00FC41B0 /* CEcoLab1Factory.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		01B2549D2F48924300FC41B0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01B2549E2F48924300FC41B0 /* CEcoLab1.c in Sources */,
+				01B2549F2F48924300FC41B0 /* CEcoLab1Factory.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +396,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = 1F5DF16EE1BF43B999A434ED38FE8F3A;
 				SDKROOT = macosx;
+				SYMROOT = "";
 			};
 			name = Debug;
 		};
@@ -350,17 +463,21 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = 1F5DF16EE1BF43B999A434ED38FE8F3A;
 				SDKROOT = macosx;
+				SYMROOT = "";
 			};
 			name = Release;
 		};
 		01138AC527F1BDA600734060 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = x86_64;
 				CODE_SIGN_STYLE = Automatic;
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../../../BuildFiles/Mac/$(ARCHS)/Static$(CONFIGURATION)";
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					ECO_LIB,
 					ECO_APPLE,
+					ECO_X86_64,
 					ECO_MAC,
 					UGUID_UTILITY,
 					"DEBUG=1",
@@ -382,11 +499,14 @@
 		01138AC627F1BDA600734060 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = x86_64;
 				CODE_SIGN_STYLE = Automatic;
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../../../BuildFiles/Mac/$(ARCHS)/Static$(CONFIGURATION)";
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					ECO_LIB,
 					ECO_APPLE,
+					ECO_X86_64,
 					ECO_MAC,
 					UGUID_UTILITY,
 					"$(inherited)",
@@ -407,7 +527,9 @@
 		01138ACE27F1BDD300734060 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = x86_64;
 				CODE_SIGN_STYLE = Automatic;
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../../../BuildFiles/Mac/$(ARCHS)/Dynamic$(CONFIGURATION)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
@@ -415,6 +537,7 @@
 					ECO_DLL,
 					ECO_APPLE,
 					ECO_MAC,
+					ECO_X86_64,
 					UGUID_UTILITY,
 					"DEBUG=1",
 					"$(inherited)",
@@ -435,13 +558,134 @@
 		01138ACF27F1BDD300734060 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = x86_64;
 				CODE_SIGN_STYLE = Automatic;
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../../../BuildFiles/Mac/$(ARCHS)/Dynamic$(CONFIGURATION)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					ECO_DLL,
 					ECO_APPLE,
+					ECO_X86_64,
+					ECO_MAC,
+					UGUID_UTILITY,
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					../../../HeaderFiles,
+					../../../SharedFiles,
+					"$(ECO_FRAMEWORK)/Eco.FileSystemManagement1/SharedFiles",
+					"$(ECO_FRAMEWORK)/Eco.MemoryManager1/SharedFiles",
+					"$(ECO_FRAMEWORK)/Eco.Core1/SharedFiles",
+					"$(ECO_FRAMEWORK)/Eco.InterfaceBus1/SharedFiles",
+				);
+				PRODUCT_NAME = "$(PRODUCT_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		01B254942F48920B00FC41B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				CODE_SIGN_STYLE = Automatic;
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../../../BuildFiles/Mac/$(ARCHS)/Static$(CONFIGURATION)";
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					ECO_LIB,
+					ECO_APPLE,
+					ECO_AARCH64,
+					ECO_MAC,
+					UGUID_UTILITY,
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					../../../HeaderFiles,
+					../../../SharedFiles,
+					"$(ECO_FRAMEWORK)/Eco.FileSystemManagement1/SharedFiles",
+					"$(ECO_FRAMEWORK)/Eco.MemoryManager1/SharedFiles",
+					"$(ECO_FRAMEWORK)/Eco.Core1/SharedFiles",
+					"$(ECO_FRAMEWORK)/Eco.InterfaceBus1/SharedFiles",
+				);
+				PRODUCT_NAME = "$(PRODUCT_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		01B254952F48920B00FC41B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				CODE_SIGN_STYLE = Automatic;
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../../../BuildFiles/Mac/$(ARCHS)/Static$(CONFIGURATION)";
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					ECO_LIB,
+					ECO_APPLE,
+					ECO_AARCH64,
+					ECO_MAC,
+					UGUID_UTILITY,
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					../../../HeaderFiles,
+					../../../SharedFiles,
+					"$(ECO_FRAMEWORK)/Eco.FileSystemManagement1/SharedFiles",
+					"$(ECO_FRAMEWORK)/Eco.MemoryManager1/SharedFiles",
+					"$(ECO_FRAMEWORK)/Eco.Core1/SharedFiles",
+					"$(ECO_FRAMEWORK)/Eco.InterfaceBus1/SharedFiles",
+				);
+				PRODUCT_NAME = "$(PRODUCT_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		01B254A22F48924300FC41B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				CODE_SIGN_STYLE = Automatic;
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../../../BuildFiles/Mac/$(ARCHS)/Dynamic$(CONFIGURATION)";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					ECO_DLL,
+					ECO_APPLE,
+					ECO_AARCH64,
+					ECO_MAC,
+					UGUID_UTILITY,
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					../../../HeaderFiles,
+					../../../SharedFiles,
+					"$(ECO_FRAMEWORK)/Eco.FileSystemManagement1/SharedFiles",
+					"$(ECO_FRAMEWORK)/Eco.MemoryManager1/SharedFiles",
+					"$(ECO_FRAMEWORK)/Eco.Core1/SharedFiles",
+					"$(ECO_FRAMEWORK)/Eco.InterfaceBus1/SharedFiles",
+				);
+				PRODUCT_NAME = "$(PRODUCT_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		01B254A32F48924300FC41B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				CODE_SIGN_STYLE = Automatic;
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../../../BuildFiles/Mac/$(ARCHS)/Dynamic$(CONFIGURATION)";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					ECO_DLL,
+					ECO_APPLE,
+					ECO_AARCH64,
 					ECO_MAC,
 					UGUID_UTILITY,
 					"$(inherited)",
@@ -471,7 +715,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		01138AC427F1BDA600734060 /* Build configuration list for PBXNativeTarget "Static" */ = {
+		01138AC427F1BDA600734060 /* Build configuration list for PBXNativeTarget "Static x86_64" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01138AC527F1BDA600734060 /* Debug */,
@@ -480,11 +724,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		01138ACD27F1BDD300734060 /* Build configuration list for PBXNativeTarget "Dynamic" */ = {
+		01138ACD27F1BDD300734060 /* Build configuration list for PBXNativeTarget "Dynamic x86_64" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01138ACE27F1BDD300734060 /* Debug */,
 				01138ACF27F1BDD300734060 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		01B254932F48920B00FC41B0 /* Build configuration list for PBXNativeTarget "Static arm64" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01B254942F48920B00FC41B0 /* Debug */,
+				01B254952F48920B00FC41B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		01B254A12F48924300FC41B0 /* Build configuration list for PBXNativeTarget "Dynamic arm64" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01B254A22F48924300FC41B0 /* Debug */,
+				01B254A32F48924300FC41B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
