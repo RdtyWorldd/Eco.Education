@@ -13,6 +13,16 @@ RUN apt-get update && apt-get install -y \
     wget \
     nano \
     sudo \
+    x11-apps \         
+    libx11-dev \         
+    libxext-dev \        
+    libxrender-dev \     
+    libxtst-dev \        
+    libxi-dev \          
+    libxrandr-dev \      
+    libgl1-mesa-glx \    
+    libgl1-mesa-dri \    
+    mesa-utils \        
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

@@ -20,11 +20,17 @@
         "source=${localWorkspaceFolder},target=/workspace,type=bind",
         // Монтируем библиотеки с хоста в контейнер
         "source=/Users/rdtyworldd/Documents/peerf_practice/libs/Eco.FrameWork,target=/opt/eco_framework,type=bind",
-        "source=/Users/rdtyworldd/Documents/peerf_practice/libs/Eco.FrameWork.RT,target=/opt/eco_framework_rt,type=bind"
+        "source=/Users/rdtyworldd/Documents/peerf_practice/libs/Eco.FrameWork.RT,target=/opt/eco_framework_rt,type=bind",
+       
+        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind"
     ],
     // Добавляем переменные окружения для контейнера
     "containerEnv": {
         "ECO_FRAMEWORK": "/opt/eco_framework",
-        "ECO_FRAMEWORK_RT": "/opt/eco_framework_rt"
-    }
+        "ECO_FRAMEWORK_RT": "/opt/eco_framework_rt",
+        // === ДОБАВЛЕНО: Переменная для X11 ===
+        "DISPLAY": "host.docker.internal:0"
+    },
+    
+    "containerUser": "root" 
 }
