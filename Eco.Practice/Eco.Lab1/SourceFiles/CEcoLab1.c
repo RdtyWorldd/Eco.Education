@@ -120,28 +120,32 @@ static uint32_t ECOCALLMETHOD CEcoLab1_Release(/* in */ IEcoLab1Ptr_t me) {
  * </описание>
  *
  */
-static int16_t ECOCALLMETHOD CEcoLab1_MyFunction(/* in */ IEcoLab1Ptr_t me, /* in */ char_t* Name, /* out */ char_t** copyName) {
+static void* ECOCALLMETHOD CEcoLab1_MyBsearch(/* in */ IEcoLab1Ptr_t me, /* in */ const void *key, /* in */ const void *base, /* in */ uint32_t nmemb, /* in */ uint32_t size, /* in */ int32_t (*compar)(const void *, const void *)) {
     CEcoLab1* pCMe = (CEcoLab1*)me;
-    int16_t index = 0;
+    
+    const char* base_ptr = (const char*)base;
+    uint32_t      left     = 0;
+    uint32_t      right    = nmemb;
 
     /* Проверка указателей */
-    if (me == 0 || Name == 0 || copyName == 0) {
-        return ERR_ECO_POINTER;
+    if (me == 0) {
+        return NULL;
     }
 
-    /* Копирование строки */
-    while(Name[index] != 0) {
-        index++;
-    }
-    pCMe->m_Name = (char_t*)pCMe->m_pIMem->pVTbl->Alloc(pCMe->m_pIMem, index + 1);
-    index = 0;
-    while(Name[index] != 0) {
-        pCMe->m_Name[index] = Name[index];
-        index++;
-    }
-    *copyName = pCMe->m_Name;
+    while (left < right) {
+        uint32_t mid = left + (right - left) / 2;
+        const void* mid_element = (const void*)(base_ptr + mid * size);
+        int cmp_result = compar(key, mid_element);
 
-    return ERR_ECO_SUCCESES;
+        if (cmp_result == 0) {
+            return (void*)mid_element;
+        } else if (cmp_result < 0) {
+            right = mid;
+        } else {
+            left = mid + 1;
+        }
+    }
+    return NULL;
 }
 
 /*
@@ -192,7 +196,7 @@ IEcoLab1VTbl g_x277FC00C35624096AFCFC125B94EEC90VTbl = {
     CEcoLab1_QueryInterface,
     CEcoLab1_AddRef,
     CEcoLab1_Release,
-    CEcoLab1_MyFunction
+    CEcoLab1_MyBsearch
 };
 
 /*

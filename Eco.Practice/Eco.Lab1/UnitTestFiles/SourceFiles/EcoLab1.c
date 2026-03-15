@@ -25,6 +25,11 @@
 #include "IdEcoFileSystemManagement1.h"
 #include "IdEcoLab1.h"
 
+/* TEST CASES*/
+#include "TestCases.h"
+
+
+
 /*
  *
  * <сводка>
@@ -44,8 +49,6 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
     IEcoInterfaceBus1* pIBus = 0;
     /* Указатель на интерфейс работы с памятью */
     IEcoMemoryAllocator1* pIMem = 0;
-    char_t* name = 0;
-    char_t* copyName = 0;
     /* Указатель на тестируемый интерфейс */
     IEcoLab1* pIEcoLab1 = 0;
 
@@ -65,7 +68,7 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
         goto Release;
     }
 #ifdef ECO_LIB
-    /* Регистрация статического компонента для работы со списком */
+    /* Регистрация статического тестируемого компонента  */
     result = pIBus->pVTbl->RegisterComponent(pIBus, &CID_EcoLab1, (IEcoUnknown*)GetIEcoComponentFactoryPtr_1F5DF16EE1BF43B999A434ED38FE8F3A);
     if (result != 0 ) {
         /* Освобождение в случае ошибки */
@@ -81,12 +84,14 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
         goto Release;
     }
 
-    /* Выделение блока памяти */
-    name = (char_t *)pIMem->pVTbl->Alloc(pIMem, 10);
+    // /* Выделение блока памяти */
+    // name = (char_t *)pIMem->pVTbl->Alloc(pIMem, 10);
 
-    /* Заполнение блока памяти */
-    pIMem->pVTbl->Fill(pIMem, name, 'a', 9);
+    // /* Заполнение блока памяти */
+    // pIMem->pVTbl->Fill(pIMem, name, 'a', 9);
 
+    // /* Освлбождение блока памяти */
+    // pIMem->pVTbl->Free(pIMem, name);
 
     /* Получение тестируемого интерфейса */
     result = pIBus->pVTbl->QueryComponent(pIBus, &CID_EcoLab1, 0, &IID_IEcoLab1, (void**) &pIEcoLab1);
@@ -95,12 +100,12 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
         goto Release;
     }
 
-
-    result = pIEcoLab1->pVTbl->MyFunction(pIEcoLab1, name, &copyName);
-
-
-    /* Освлбождение блока памяти */
-    pIMem->pVTbl->Free(pIMem, name);
+    test_integer_array(pIEcoLab1);
+    test_long_array(pIEcoLab1);
+    test_float_array(pIEcoLab1);
+    test_double_array(pIEcoLab1);
+    test_ldouble_array(pIEcoLab1);
+    test_string_array(pIEcoLab1);
 
 Release:
 
