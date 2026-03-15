@@ -107,6 +107,8 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
     test_ldouble_array(pIEcoLab1);
     test_string_array(pIEcoLab1);
 
+    // Запуск performance тестов для всех типов данных с использованием seed
+    run_all_performance_tests(pIEcoLab1, pIMem, 10000000, 111);
 Release:
 
     /* Освобождение интерфейса для работы с интерфейсной шиной */

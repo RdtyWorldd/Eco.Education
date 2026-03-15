@@ -1,30 +1,23 @@
-#ifndef _INCLUDE_TEST_CASES_
-#define _INCLUDE_TEST_CASES_
+#ifndef TESTCASES_H
+#define TESTCASES_H
 
-/* ECO OS */
-#include "IdEcoMemoryManager1.h"
-#include "IdEcoLab1.h"
-
-/* STD LIB */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <assert.h>
 
-/*
- *
- * <сводка>
- *   Функции для тестирования реализованной функции компонента
- * </сводка>
- *
- * <описание>
- *   Сравнения работы функции MyBsearch компонента EcoLab1
- *      с реализацией из стандартной бибилотеки
- * </описание>
- *
- */
+#include "IEcoLab1.h"
+#include "IdEcoMemoryManager1.h"
 
+// Функции сравнения
+int compare_int(const void *a, const void *b);
+int compare_long(const void *a, const void *b);
+int compare_float(const void *a, const void *b);
+int compare_double(const void *a, const void *b);
+int compare_ldouble(const void *a, const void *b);
+int compare_string(const void *a, const void *b);
+
+// Тесты корректности
 void test_integer_array(IEcoLab1* pIcomp);
 void test_long_array(IEcoLab1* pIcomp);
 void test_float_array(IEcoLab1* pIcomp);
@@ -32,6 +25,15 @@ void test_double_array(IEcoLab1* pIcomp);
 void test_ldouble_array(IEcoLab1* pIcomp);
 void test_string_array(IEcoLab1* pIcomp);
 
-void performance_test();
+// Performance тесты
+int16_t performance_test_int(IEcoLab1 *pIcomp, IEcoMemoryAllocator1* pIMem, uint32_t array_size, uint32_t seed);
+int16_t performance_test_long(IEcoLab1 *pIcomp, IEcoMemoryAllocator1* pIMem, uint32_t array_size, uint32_t seed);
+int16_t performance_test_float(IEcoLab1 *pIcomp, IEcoMemoryAllocator1* pIMem, uint32_t array_size, uint32_t seed);
+int16_t performance_test_double(IEcoLab1 *pIcomp, IEcoMemoryAllocator1* pIMem, uint32_t array_size, uint32_t seed);
+int16_t performance_test_ldouble(IEcoLab1 *pIcomp, IEcoMemoryAllocator1* pIMem, uint32_t array_size, uint32_t seed);
+int16_t performance_test_string(IEcoLab1 *pIcomp, IEcoMemoryAllocator1* pIMem, uint32_t array_size, uint32_t seed);
 
-#endif // _INCLUDE_TEST_CASES_
+// Функция для запуска всех performance тестов
+int16_t run_all_performance_tests(IEcoLab1 *pIcomp, IEcoMemoryAllocator1* pIMem, uint32_t array_size, uint32_t seed);
+
+#endif // TESTCASES_H

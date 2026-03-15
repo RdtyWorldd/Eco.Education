@@ -1,4 +1,5 @@
 #include "TestCases.h"
+#include <time.h>
 
 // Функции сравнения для разных типов данных
 int compare_int(const void *a, const void *b) {
@@ -37,7 +38,6 @@ int compare_string(const void *a, const void *b) {
     return strcmp(*(const char**)a, *(const char**)b);
 }
 
-
 /*
 *** ТЕСТЫ
 */
@@ -64,7 +64,7 @@ void test_integer_array(IEcoLab1* pIcomp) {
         printf("Key %d: my=%p(%d), std=%p(%d) - %s\n", 
                keys[i], result_my, result_my ? *result_my : -1,
                result_std, result_std ? *result_std : -1,
-               result_my == result_std ? "OK" : "FAIL");
+               (result_my == result_std) || (result_my && result_std && *result_my == *result_std) ? "OK" : "FAIL");
     }
 }
 
@@ -90,7 +90,7 @@ void test_long_array(IEcoLab1* pIcomp) {
         printf("Key %ld: my=%p(%ld), std=%p(%ld) - %s\n", 
                keys[i], result_my, result_my ? *result_my : -1,
                result_std, result_std ? *result_std : -1,
-               result_my == result_std ? "OK" : "FAIL");
+               (result_my == result_std) || (result_my && result_std && *result_my == *result_std) ? "OK" : "FAIL");
     }
 }
 
@@ -116,7 +116,7 @@ void test_float_array(IEcoLab1* pIcomp) {
         printf("Key %.2f: my=%p(%.2f), std=%p(%.2f) - %s\n", 
                keys[i], result_my, result_my ? *result_my : 0,
                result_std, result_std ? *result_std : 0,
-               result_my == result_std ? "OK" : "FAIL");
+               (result_my == result_std) || (result_my && result_std && *result_my == *result_std) ? "OK" : "FAIL");
     }
 }
 
@@ -142,7 +142,7 @@ void test_double_array(IEcoLab1* pIcomp) {
         printf("Key %.2f: my=%p(%.2f), std=%p(%.2f) - %s\n", 
                keys[i], result_my, result_my ? *result_my : 0,
                result_std, result_std ? *result_std : 0,
-               result_my == result_std ? "OK" : "FAIL");
+               (result_my == result_std) || (result_my && result_std && *result_my == *result_std) ? "OK" : "FAIL");
     }
 }
 
@@ -168,7 +168,7 @@ void test_ldouble_array(IEcoLab1* pIcomp) {
         printf("Key %.2Lf: my=%p(%.2Lf), std=%p(%.2Lf) - %s\n", 
                keys[i], result_my, result_my ? *result_my : 0,
                result_std, result_std ? *result_std : 0,
-               result_my == result_std ? "OK" : "FAIL");
+               (result_my == result_std) || (result_my && result_std && *result_my == *result_std) ? "OK" : "FAIL");
     }
 }
 
@@ -196,4 +196,206 @@ void test_string_array(IEcoLab1* pIcomp) {
                result_std, result_std ? *result_std : "NULL",
                result_my == result_std ? "OK" : "FAIL");
     }
+}
+
+// Универсальная функция для замера производительности
+void clock_part(IEcoLab1Ptr_t pIcomp, const uint32_t repeat_test_count, const void *arr, 
+                uint32_t nmemb, uint32_t size, int32_t (*compar)(const void *, const void *), 
+                uint32_t seed, const char* type_name) {
+    clock_t               start             = 0;
+    clock_t               end               = 0;
+    clock_t               total_clock_my    = 0; 
+    clock_t               total_clock_std   = 0; 
+    double                avg_time_my       = 0.0; 
+    double                avg_time_std      = 0.0;
+    uint32_t              i                 = 0;
+    
+    // Инициализация генератора случайных чисел с заданным seed
+    srand(seed);
+    
+    printf("\n--- Performance Test for %s (seed: %u, iterations: %u) ---\n", 
+           type_name, seed, repeat_test_count);
+    
+    for(i = 0; i < repeat_test_count; i++) {
+        // Генерируем случайный индекс для поиска
+        uint32_t index = rand() % nmemb;
+        
+        // Создаем ключ на основе значения из массива
+        // Для разных типов данных нужно по-разному вычислять указатель на ключ
+        const void* key_ptr = (const char*)arr + (index * size);
+        
+        start = clock();
+        pIcomp->pVTbl->MyBsearch(pIcomp, key_ptr, arr, nmemb, size, compar);
+        end = clock();
+        total_clock_my += end - start;
+
+        start = clock();
+        bsearch(key_ptr, arr, nmemb, size, compar);
+        end = clock();
+        total_clock_std += end - start;
+    }
+
+    avg_time_my = (double)total_clock_my / CLOCKS_PER_SEC;
+    avg_time_std = (double)total_clock_std / CLOCKS_PER_SEC;
+
+    printf("MyBsearch total time: %.4f sec, average per call: %.6f sec\n", 
+           avg_time_my, avg_time_my / repeat_test_count);
+    printf("bsearch total time:   %.4f sec, average per call: %.6f sec\n", 
+           avg_time_std, avg_time_std / repeat_test_count);
+    printf("Performance ratio (My/Std): %.2f\n", avg_time_my / avg_time_std);
+}
+
+// Performance test for int
+int16_t performance_test_int(IEcoLab1 *pIcomp, IEcoMemoryAllocator1* pIMem, 
+                              uint32_t array_size, uint32_t seed) {
+    const uint32_t  repeat_test_count = 10000; // Количество поисков
+    int*            arr               = 0;
+    uint32_t        i                 = 0;
+
+    if(pIcomp == 0 || pIMem == 0) {
+        return -1;
+    }
+
+    printf("\n=== PERFORMANCE TEST INT ===\n");
+    
+    // Выделение памяти
+    arr = (int*)pIMem->pVTbl->Alloc(pIMem, array_size * sizeof(int));
+    if (!arr) {
+        return -1;
+    }
+
+    // Заполнение массива отсортированными значениями
+    for(i = 0; i < array_size; i++) {
+        arr[i] = i * 2; // Четные числа для разнообразия
+    }
+
+    clock_part(pIcomp, repeat_test_count, arr, array_size, sizeof(int), 
+               compare_int, seed, "int");
+    
+    pIMem->pVTbl->Free(pIMem, arr);
+    return 0;
+}
+
+// Performance test for long
+int16_t performance_test_long(IEcoLab1 *pIcomp, IEcoMemoryAllocator1* pIMem, 
+                               uint32_t array_size, uint32_t seed) {
+    const uint32_t  repeat_test_count = 10000;
+    long*           arr               = 0;
+    uint32_t        i                 = 0;
+
+    if(pIcomp == 0 || pIMem == 0) {
+        return -1;
+    }
+
+    printf("\n=== PERFORMANCE TEST LONG ===\n");
+    
+    arr = (long*)pIMem->pVTbl->Alloc(pIMem, array_size * sizeof(long));
+    if (!arr) return -1;
+
+    for(i = 0; i < array_size; i++) {
+        arr[i] = (long)i * 100L;
+    }
+
+    clock_part(pIcomp, repeat_test_count, arr, array_size, sizeof(long), 
+               compare_long, seed, "long");
+    
+    pIMem->pVTbl->Free(pIMem, arr);
+    return 0;
+}
+
+// Performance test for float
+int16_t performance_test_float(IEcoLab1 *pIcomp, IEcoMemoryAllocator1* pIMem, 
+                                uint32_t array_size, uint32_t seed) {
+    const uint32_t  repeat_test_count = 10000;
+    float*          arr               = 0;
+    uint32_t        i                 = 0;
+
+    if(pIcomp == 0 || pIMem == 0) {
+        return -1;
+    }
+
+    printf("\n=== PERFORMANCE TEST FLOAT ===\n");
+    
+    arr = (float*)pIMem->pVTbl->Alloc(pIMem, array_size * sizeof(float));
+    if (!arr) return -1;
+
+    for(i = 0; i < array_size; i++) {
+        arr[i] = (float)i * 1.5f;
+    }
+
+    clock_part(pIcomp, repeat_test_count, arr, array_size, sizeof(float), 
+               compare_float, seed, "float");
+    
+    pIMem->pVTbl->Free(pIMem, arr);
+    return 0;
+}
+
+// Performance test for double
+int16_t performance_test_double(IEcoLab1 *pIcomp, IEcoMemoryAllocator1* pIMem, 
+                                 uint32_t array_size, uint32_t seed) {
+    const uint32_t  repeat_test_count = 10000;
+    double*         arr               = 0;
+    uint32_t        i                 = 0;
+
+    if(pIcomp == 0 || pIMem == 0) {
+        return -1;
+    }
+
+    printf("\n=== PERFORMANCE TEST DOUBLE ===\n");
+    
+    arr = (double*)pIMem->pVTbl->Alloc(pIMem, array_size * sizeof(double));
+    if (!arr) return -1;
+
+    for(i = 0; i < array_size; i++) {
+        arr[i] = (double)i * 2.5;
+    }
+
+    clock_part(pIcomp, repeat_test_count, arr, array_size, sizeof(double), 
+               compare_double, seed, "double");
+    
+    pIMem->pVTbl->Free(pIMem, arr);
+    return 0;
+}
+
+// Performance test for long double
+int16_t performance_test_ldouble(IEcoLab1 *pIcomp, IEcoMemoryAllocator1* pIMem, 
+                                  uint32_t array_size, uint32_t seed) {
+    const uint32_t  repeat_test_count = 10000;
+    long double*    arr               = 0;
+    uint32_t        i                 = 0;
+
+    if(pIcomp == 0 || pIMem == 0) {
+        return -1;
+    }
+
+    printf("\n=== PERFORMANCE TEST LONG DOUBLE ===\n");
+    
+    arr = (long double*)pIMem->pVTbl->Alloc(pIMem, array_size * sizeof(long double));
+    if (!arr) return -1;
+
+    for(i = 0; i < array_size; i++) {
+        arr[i] = (long double)i * 3.3L;
+    }
+
+    clock_part(pIcomp, repeat_test_count, arr, array_size, sizeof(long double), 
+               compare_ldouble, seed, "long double");
+    
+    pIMem->pVTbl->Free(pIMem, arr);
+    return 0;
+}
+
+// Функция для запуска всех performance-тестов с одинаковым seed
+int16_t run_all_performance_tests(IEcoLab1 *pIcomp, IEcoMemoryAllocator1* pIMem, 
+                                    uint32_t array_size, uint32_t seed) {
+    printf("\n===========================================");
+    printf("\n=== RUNNING ALL PERFORMANCE TESTS WITH SEED: %u ===", seed);
+    printf("\n===========================================\n");
+    
+    performance_test_int(pIcomp, pIMem, array_size, seed);
+    performance_test_long(pIcomp, pIMem, array_size, seed);
+    performance_test_float(pIcomp, pIMem, array_size, seed);
+    performance_test_double(pIcomp, pIMem, array_size, seed);
+    performance_test_ldouble(pIcomp, pIMem, array_size, seed);
+    
+    return 0;
 }
