@@ -9,14 +9,6 @@
 #include "IEcoLab1.h"
 #include "IdEcoMemoryManager1.h"
 
-// Функции сравнения
-int compare_int(const void *a, const void *b);
-int compare_long(const void *a, const void *b);
-int compare_float(const void *a, const void *b);
-int compare_double(const void *a, const void *b);
-int compare_ldouble(const void *a, const void *b);
-int compare_string(const void *a, const void *b);
-
 // Тесты корректности
 void test_integer_array(IEcoLab1* pIcomp);
 void test_long_array(IEcoLab1* pIcomp);

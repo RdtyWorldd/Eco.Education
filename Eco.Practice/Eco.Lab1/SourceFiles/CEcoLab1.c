@@ -112,11 +112,16 @@ static uint32_t ECOCALLMETHOD CEcoLab1_Release(/* in */ IEcoLab1Ptr_t me) {
 /*
  *
  * <сводка>
- *   Функция MyFunction
+ *   Функция MyBsearch
  * </сводка>
  *
  * <описание>
- *   Функция
+ *   Функция бинарного поиска 
+ *   key    - указатель на искомый элемент
+ *   base   - массив в котором нужно искать элемент
+ *   nmemb  - количество элементов в массиве
+ *   size   - размер одного элемента в байтах
+ *   compar - функция сравнения элементов 
  * </описание>
  *
  */
@@ -126,11 +131,6 @@ static void* ECOCALLMETHOD CEcoLab1_MyBsearch(/* in */ IEcoLab1Ptr_t me, /* in *
     const char* base_ptr = (const char*)base;
     uint32_t      left     = 0;
     uint32_t      right    = nmemb;
-
-    /* Проверка указателей */
-    if (me == 0) {
-        return NULL;
-    }
 
     while (left < right) {
         uint32_t mid = left + (right - left) / 2;

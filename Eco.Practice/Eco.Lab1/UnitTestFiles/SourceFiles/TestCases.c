@@ -238,9 +238,9 @@ void clock_part(IEcoLab1Ptr_t pIcomp, const uint32_t repeat_test_count, const vo
     avg_time_my = (double)total_clock_my / CLOCKS_PER_SEC;
     avg_time_std = (double)total_clock_std / CLOCKS_PER_SEC;
 
-    printf("MyBsearch total time: %.4f sec, average per call: %.6f sec\n", 
+    printf("MyBsearch total time: %.6f sec, average per call: %.8f sec\n", 
            avg_time_my, avg_time_my / repeat_test_count);
-    printf("bsearch total time:   %.4f sec, average per call: %.6f sec\n", 
+    printf("bsearch total time:   %.6f sec, average per call: %.8f sec\n", 
            avg_time_std, avg_time_std / repeat_test_count);
     printf("Performance ratio (My/Std): %.2f\n", avg_time_my / avg_time_std);
 }
