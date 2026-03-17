@@ -84,15 +84,6 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
         goto Release;
     }
 
-    // /* Выделение блока памяти */
-    // name = (char_t *)pIMem->pVTbl->Alloc(pIMem, 10);
-
-    // /* Заполнение блока памяти */
-    // pIMem->pVTbl->Fill(pIMem, name, 'a', 9);
-
-    // /* Освлбождение блока памяти */
-    // pIMem->pVTbl->Free(pIMem, name);
-
     /* Получение тестируемого интерфейса */
     result = pIBus->pVTbl->QueryComponent(pIBus, &CID_EcoLab1, 0, &IID_IEcoLab1, (void**) &pIEcoLab1);
     if (result != 0 || pIEcoLab1 == 0) {
