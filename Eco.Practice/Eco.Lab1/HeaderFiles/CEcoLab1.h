@@ -28,7 +28,9 @@ typedef struct CEcoLab1 {
 
     /* Таблица функций интерфейса IEcoLab1 */
     IEcoLab1VTbl* m_pVTblIEcoLab1;
-
+    /* Неделегирующий интерфейс IEcoUnknown */
+    IEcoUnknownVTbl* m_pVTblINondelegatingUnk;
+      
 
     /* Счетчик ссылок */
     uint32_t m_cRef;
@@ -41,6 +43,8 @@ typedef struct CEcoLab1 {
 
     /* Данные экземпляра */
     char_t* m_Name;
+
+    IEcoUnknown* m_pIUnkOuter;
 
 } CEcoLab1, *CEcoLab1Ptr;
 

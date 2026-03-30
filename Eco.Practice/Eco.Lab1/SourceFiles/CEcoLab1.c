@@ -191,6 +191,91 @@ int16_t ECOCALLMETHOD initCEcoLab1(/*in*/ IEcoLab1Ptr_t me, /* in */ struct IEco
     return result;
 }
 
+/*
+ *
+ * <сводка>
+ *   Функция NondelegatingQueryInterface
+ * </сводка>
+ *
+ * <описание>
+ *   Неделегирующий QueryInterface
+ * </описание>
+ *
+ */
+static int16_t ECOCALLMETHOD CEcoLab1_NondelegatingQueryInterface(
+    /* in */ IEcoUnknown* me,
+    /* in */ const UGUID* riid,
+    /* out */ void** ppv)
+{
+    CEcoLab1* pCMe = (CEcoLab1*)((uint64_t)me - sizeof(IEcoUnknown));
+
+    /* Проверка указателей */
+    if (me == 0 || ppv == 0) {
+        return ERR_ECO_POINTER;
+    }
+
+    if (IsEqualUGUID(riid, &IID_IEcoLab1)) {
+        *ppv = &pCMe->m_pVTblIEcoLab1;
+        ((IEcoUnknown*)(*ppv))->pVTbl->AddRef((IEcoUnknown*)(*ppv));
+    }
+    else if (IsEqualUGUID(riid, &IID_IEcoUnknown)) {
+        *ppv = &pCMe->m_pVTblINondelegatingUnk;
+        ++pCMe->m_cRef;
+    }
+    else {
+        *ppv = 0;
+        return ERR_ECO_NOINTERFACE;
+    }
+
+    return ERR_ECO_SUCCESES;
+}
+
+
+/*
+ *
+ * <сводка>
+ *   Функция NondelegatingAddRef
+ * </сводка>
+ *
+ */
+static uint32_t ECOCALLMETHOD CEcoLab1_NondelegatingAddRef(
+    /* in */ IEcoUnknown* me)
+{
+    CEcoLab1* pCMe = (CEcoLab1*)((uint64_t)me - sizeof(IEcoUnknown));
+
+    if (me == 0) {
+        return -1;
+    }
+
+    return ++pCMe->m_cRef;
+}
+
+/*
+ *
+ * <сводка>
+ *   Функция NondelegatingRelease
+ * </сводка>
+ *
+ */
+static uint32_t ECOCALLMETHOD CEcoLab1_NondelegatingRelease(
+    /* in */ IEcoUnknown* me)
+{
+    CEcoLab1* pCMe = (CEcoLab1*)((uint64_t)me - sizeof(IEcoUnknown));
+
+    if (me == 0) {
+        return -1;
+    }
+
+    --pCMe->m_cRef;
+
+    if (pCMe->m_cRef == 0) {
+        deleteCEcoLab1((IEcoLab1*)pCMe);
+        return 0;
+    }
+
+    return pCMe->m_cRef;
+}
+
 /* Create Virtual Table IEcoLab1 */
 IEcoLab1VTbl g_x277FC00C35624096AFCFC125B94EEC90VTbl = {
     CEcoLab1_QueryInterface,
@@ -198,6 +283,13 @@ IEcoLab1VTbl g_x277FC00C35624096AFCFC125B94EEC90VTbl = {
     CEcoLab1_Release,
     CEcoLab1_MyBsearch
 };
+
+IEcoUnknownVTbl g_x000000000000000000000000000000AAVTblB = {
+    CEcoLab1_NondelegatingQueryInterface,
+    CEcoLab1_NondelegatingAddRef,
+    CEcoLab1_NondelegatingRelease
+};
+
 
 /*
  *
@@ -267,11 +359,22 @@ int16_t ECOCALLMETHOD createCEcoLab1(/* in */ IEcoUnknown* pIUnkSystem, /* in */
     /* Создание таблицы функций интерфейса IEcoLab1 */
     pCMe->m_pVTblIEcoLab1 = &g_x277FC00C35624096AFCFC125B94EEC90VTbl;
 
+    /* Неделегирующий IEcoUnknown */
+    pCMe->m_pVTblINondelegatingUnk = &g_x000000000000000000000000000000AAVTblB;
+
+    /* Агрегация */
+    if (pIUnkOuter != 0) {
+        pCMe->m_pIUnkOuter = pIUnkOuter;
+    }
+    else {
+        pCMe->m_pIUnkOuter = (IEcoUnknown*)&pCMe->m_pVTblINondelegatingUnk;
+    }
+
     /* Инициализация данных */
     pCMe->m_Name = 0;
 
     /* Возврат указателя на интерфейс */
-    *ppIEcoLab1 = (IEcoLab1*)pCMe;
+    *ppIEcoLab1 = (IEcoLab1*)&pCMe->m_pVTblINondelegatingUnk;
 
     /* Освобождение */
     pIBus->pVTbl->Release(pIBus);
