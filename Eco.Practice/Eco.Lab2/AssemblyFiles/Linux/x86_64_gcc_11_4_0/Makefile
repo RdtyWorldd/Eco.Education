@@ -1,99 +1,70 @@
-ifeq ($(OS), Windows_NT)
-	#WINDOWS USE THESE DEFINITIONS
-	RM = -del /q /f
-	SLASH = \\
-	SWALLOW_OUTPUT = >nul 2>nul
-	TOOLCHAIN = 
-	TOOL = 
-else
-	#LINUX USE THESE DEFINITIONS
-	RM = -rm -f
-	SLASH = /
-	SWALLOW_OUTPUT =
-	TOOLCHAIN = 
-	TOOL = 
-endif 
-
 ifeq ($(TARGET), 1)
 OUT_TARGET = libF87CD666E6314B33B2B4508FDCD4BE15.a
 ifeq ($(DEBUG), 1)
 CONFIG_TARGET = StaticDebug
-CCFLAGS_TARGET = -Wall -g -DECO_LIB
+CCFLAGS_TARGET = -Wall -O3 -g -DECO_LIB
 LDFLAGS_TARGET =
-ARCH_TARGET = x86_64
 else
 CONFIG_TARGET = StaticRelease
 CCFLAGS_TARGET = -O3 -DECO_LIB
 LDFLAGS_TARGET =
-ARCH_TARGET = x86_64
 endif
 else
 OUT_TARGET = F87CD666E6314B33B2B4508FDCD4BE15.so
 ifeq ($(DEBUG), 1)
 CONFIG_TARGET = DynamicDebug
-CCFLAGS_TARGET = -Wall -fPIC -g -DECO_DLL
+CCFLAGS_TARGET = -Wall -O3 -fPIC -g -DECO_DLL
 LDFLAGS_TARGET = -shared
-ARCH_TARGET = x86_64
 else
 CONFIG_TARGET = DynamicRelease
 CCFLAGS_TARGET = -O3 -fPIC -DECO_DLL
 LDFLAGS_TARGET = -shared
-ARCH_TARGET = x86_64
 endif
 endif
 
-# include directories
-INC = \
--I ..$(SLASH)..$(SLASH)..$(SLASH)HeaderFiles \
--I ..$(SLASH)..$(SLASH)..$(SLASH)SharedFiles \
--I $(ECO_FRAMEWORK)$(SLASH)Eco.Core1$(SLASH)SharedFiles \
--I $(ECO_FRAMEWORK)$(SLASH)Eco.InterfaceBus1$(SLASH)SharedFiles \
--I $(ECO_FRAMEWORK)$(SLASH)Eco.MemoryManager1$(SLASH)SharedFiles \
--I $(ECO_FRAMEWORK)$(SLASH)Eco.FileSystemManagement1$(SLASH)SharedFiles 
-
-
-# source files.
 SRC = \
-..$(SLASH)..$(SLASH)..$(SLASH)SourceFiles$(SLASH)CEcoLab2.c \
-..$(SLASH)..$(SLASH)..$(SLASH)SourceFiles$(SLASH)CEcoLab2Factory.c
+../../../SourceFiles/CEcoLab2.c \
+../../../SourceFiles/CEcoLab2Factory.c
+
+INCLUDES = \
+-I ../../../HeaderFiles \
+-I ../../../SharedFiles \
+-I $(ECO_FRAMEWORK)/Eco.Core1/SharedFiles \
+-I $(ECO_FRAMEWORK)/Eco.InterfaceBus1/SharedFiles \
+-I $(ECO_FRAMEWORK)/Eco.MemoryManager1/SharedFiles \
+-I $(ECO_FRAMEWORK)/Eco.FileSystemManagement1/SharedFiles
 
 OBJ = $(SRC:.c=.o)
 
 OUT = $(OUT_TARGET)
-OUT_DIR = ..$(SLASH)..$(SLASH)..$(SLASH)BuildFiles$(SLASH)Linux$(SLASH)$(ARCH_TARGET)$(SLASH)$(CONFIG_TARGET)
+OUT_DIR = ../../../BuildFiles/Linux/x86_64/$(CONFIG_TARGET)
 
- 
-# C++ compiler flags (-g -O2 -Wall)
-CCFLAGS = $(CCFLAGS_TARGET) -DECO_LINUX -DUGUID_UTILITY
- 
-# compiler
-GNU = $(TOOLCHAIN)
-CC = $(TOOL)gcc
-AR = $(TOOL)gcc-ar
+CC = gcc
+AR = gcc-ar
+RM = rm -f
+
+CCFLAGS = $(CCFLAGS_TARGET) -DECO_LINUX -DECO_X86_64 -DUGUID_UTILITY
+LDFLAGS = $(LDFLAGS_TARGET)
+LIBS = -lc -lm -lgcc
 
 ifeq ($(TARGET), 1)
-CMD_TARGET=$(GNU)$(AR) rcs
+CMD_TARGET = $(AR) rcs
+LIBS =
 else
-CMD_TARGET=$(GNU)$(CC) -o
+CMD_TARGET = $(CC) -o
 endif
 
-# library paths
-LIBS = -lc -lm -lgcc
- 
-# compile flags
-LDFLAGS = $(LDFLAGS_TARGET)
- 
-.SUFFIXES: .c
+.PHONY: all clean
 
 all: $(OUT)
 
-.c.o:
-	$(GNU)$(CC) $(INC) $(CCFLAGS) -c $< -o $@
- 
+%.o: %.c
+	$(CC) $(INCLUDES) $(CCFLAGS) -c $< -o $@
+
 $(OUT): $(OBJ)
 	mkdir -p $(OUT_DIR)
-	$(CMD_TARGET) $(OUT_DIR)$(SLASH)$(OUT) $(OBJ) $(LDFLAGS)
-	rm $(OBJ)
+	$(CMD_TARGET) $(OUT_DIR)/$(OUT) $(OBJ) $(LDFLAGS) $(LIBS)
+	$(RM) $(OBJ)
 
 clean:
-	$(RM) $(OBJ) $(OUT_DIR)$(SLASH)$(OUT)
+	$(RM) $(OBJ) $(OUT_DIR)/$(OUT)
