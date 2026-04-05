@@ -51,13 +51,13 @@ uint32_t ECOCALLMETHOD CEcoLab2_IEcoCalculatorX_Release(IEcoCalculatorXPtr_t me)
 }
 
 int32_t ECOCALLMETHOD CEcoLab2_Addition(IEcoCalculatorXPtr_t me, int16_t a, int16_t b) {
-    (void)me;
-    return (int32_t)(a + b);
+    CEcoLab2* pCMe = (CEcoLab2*)me;
+    return pCMe->m_pIX->pVTbl->Addition(me, a, b);
 }
 
 int16_t ECOCALLMETHOD CEcoLab2_Subtraction(IEcoCalculatorXPtr_t me, int16_t a, int16_t b) {
-    (void)me;
-    return (int16_t)(a - b);
+    CEcoLab2* pCMe = (CEcoLab2*)me;
+    return pCMe->m_pIX->pVTbl->Subtraction(me, a, b);
 }
 
 /* IEcoCalculatorY */
@@ -96,16 +96,13 @@ uint32_t ECOCALLMETHOD CEcoLab2_IEcoCalculatorY_Release(IEcoCalculatorYPtr_t me)
 }
 
 int32_t ECOCALLMETHOD CEcoLab2_Multiplication(IEcoCalculatorYPtr_t me, int16_t a, int16_t b) {
-    (void)me;
-    return (int32_t)(a * b);
+    CEcoLab2* pCMe = (CEcoLab2*)me;
+    return pCMe->m_pIY->pVTbl->Multiplication(me, a, b);
 }
 
 int16_t ECOCALLMETHOD CEcoLab2_Division(IEcoCalculatorYPtr_t me, int16_t a, int16_t b) {
-    (void)me;
-    if (b == 0) {
-        return 0;
-    }
-    return (int16_t)(a / b);
+    CEcoLab2* pCMe = (CEcoLab2*)me;
+    return pCMe->m_pIY->pVTbl->Division(me, a, b);
 }
 
 IEcoCalculatorXVTbl g_x9322111622484742AE0682819447843DVTblD = {
