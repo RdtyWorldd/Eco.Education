@@ -12,6 +12,8 @@
 #include "IdEcoLab1.h"
 #include "CEcoLab2.h"
 
+#include <stdio.h>
+
 static uint32_t ECOCALLMETHOD CEcoLab2_AddRef(/* in */ IEcoCalculatorXPtr_t me);
 static uint32_t ECOCALLMETHOD CEcoLab2_Release(/* in */ IEcoCalculatorXPtr_t me);
 
@@ -225,6 +227,8 @@ int16_t ECOCALLMETHOD initCEcoLab2(/*in*/ IEcoCalculatorXPtr_t me, /* in */ IEco
         return result;
     }
 
+    printf("CEcoLab2: initialization started\n");
+
     pCMe->m_pISys = (IEcoSystem1*)pIUnkSystem;
 
     result = pCMe->m_pISys->pVTbl->QueryInterface(
@@ -232,39 +236,61 @@ int16_t ECOCALLMETHOD initCEcoLab2(/*in*/ IEcoCalculatorXPtr_t me, /* in */ IEco
         &IID_IEcoInterfaceBus1,
         (void**)&pIBus);
     if (result != 0 || pIBus == 0) {
+        printf("CEcoLab2: failed to get IEcoInterfaceBus1\n");
         return result;
     }
 
+    /* Получение IEcoCalculatorX */
     result = pIBus->pVTbl->QueryComponent(
         pIBus,
         &CID_EcoCalculatorB,
         0,
         &IID_IEcoCalculatorX,
         (void**)&pCMe->m_pIX);
-    if (result != 0 || pCMe->m_pIX == 0) {
+
+    if (result == 0 && pCMe->m_pIX != 0) {
+        printf("CEcoLab2: IEcoCalculatorX obtained from EcoCalculatorB\n");
+    } else {
         result = pIBus->pVTbl->QueryComponent(
             pIBus,
             &CID_EcoCalculatorA,
             0,
             &IID_IEcoCalculatorX,
             (void**)&pCMe->m_pIX);
+
+        if (result == 0 && pCMe->m_pIX != 0) {
+            printf("CEcoLab2: IEcoCalculatorX obtained from EcoCalculatorA\n");
+        } else {
+            printf("CEcoLab2: failed to obtain IEcoCalculatorX\n");
+        }
     }
 
+    /* Получение IEcoCalculatorY */
     result = pIBus->pVTbl->QueryComponent(
         pIBus,
         &CID_EcoCalculatorD,
         0,
         &IID_IEcoCalculatorY,
         (void**)&pCMe->m_pIY);
-    if (result != 0 || pCMe->m_pIY == 0) {
+
+    if (result == 0 && pCMe->m_pIY != 0) {
+        printf("CEcoLab2: IEcoCalculatorY obtained from EcoCalculatorD\n");
+    } else {
         result = pIBus->pVTbl->QueryComponent(
             pIBus,
             &CID_EcoCalculatorE,
             0,
             &IID_IEcoCalculatorY,
             (void**)&pCMe->m_pIY);
+
+        if (result == 0 && pCMe->m_pIY != 0) {
+            printf("CEcoLab2: IEcoCalculatorY obtained from EcoCalculatorE\n");
+        } else {
+            printf("CEcoLab2: failed to obtain IEcoCalculatorY\n");
+        }
     }
 
+    /* Агрегация EcoLab1 */
     result = pIBus->pVTbl->QueryComponent(
         pIBus,
         &CID_EcoLab1,
@@ -272,7 +298,16 @@ int16_t ECOCALLMETHOD initCEcoLab2(/*in*/ IEcoCalculatorXPtr_t me, /* in */ IEco
         &IID_IEcoUnknown,
         (void**)&pCMe->m_pInnerLab1);
 
+    if (result == 0 && pCMe->m_pInnerLab1 != 0) {
+        printf("CEcoLab2: EcoLab1 successfully aggregated (inner component)\n");
+    } else {
+        printf("CEcoLab2: failed to aggregate EcoLab1\n");
+    }
+
     pIBus->pVTbl->Release(pIBus);
+
+    printf("CEcoLab2: initialization finished\n");
+
     return result;
 }
 

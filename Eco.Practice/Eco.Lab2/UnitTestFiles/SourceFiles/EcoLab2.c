@@ -61,6 +61,7 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
     if (result != 0) {
         goto Release;
     }
+    printf("EcoLab2: %s\n", result == 0 ? "OK" : "FAIL");
 
     result = pIBus->pVTbl->RegisterComponent(
         pIBus,
@@ -69,6 +70,7 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
     if (result != 0) {
         goto Release;
     }
+    printf("EcoLab1: %s\n", result == 0 ? "OK" : "FAIL");
 
     result = pIBus->pVTbl->RegisterComponent(
         pIBus,
@@ -77,6 +79,7 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
     if (result != 0) {
         goto Release;
     }
+    printf("EcoCalculatorA: %s\n", result == 0 ? "OK" : "FAIL");
 
     // result = pIBus->pVTbl->RegisterComponent(
     //     pIBus,
@@ -85,6 +88,7 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
     // if (result != 0) {
     //     goto Release;
     // }
+    // printf("EcoCalculatorB: %s\n", result == 0 ? "OK" : "FAIL");
 
     // result = pIBus->pVTbl->RegisterComponent(
     //     pIBus,
@@ -93,6 +97,7 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
     // if (result != 0) {
     //     goto Release;
     // }
+    // printf("EcoCalculatorD: %s\n", result == 0 ? "OK" : "FAIL");
 
     result = pIBus->pVTbl->RegisterComponent(
         pIBus,
@@ -101,6 +106,7 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
     if (result != 0) {
         goto Release;
     }
+    printf("EcoCalculatorE: %s\n", result == 0 ? "OK" : "FAIL");
 #endif
 
     /* 1) Create EcoLab2 and obtain all primary interfaces */
@@ -110,9 +116,11 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
         0,
         &IID_IEcoCalculatorX,
         (void**)&pICalcX);
+    printf("Get IEcoCalculatorX: %s\n", (result == 0 && pICalcX) ? "OK" : "FAIL");
     if (result != 0 || pICalcX == 0) {
         goto Release;
     }
+    
 
     result = pIBus->pVTbl->QueryComponent(
         pIBus,
@@ -120,37 +128,56 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
         0,
         &IID_IEcoCalculatorY,
         (void**)&pICalcY);
+    printf("Get IEcoCalculatorY: %s\n", (result == 0 && pICalcY) ? "OK" : "FAIL");
     if (result != 0 || pICalcY == 0) {
         goto Release;
     }
-
+    
     result = pIBus->pVTbl->QueryComponent(
         pIBus,
         &CID_EcoLab2,
         0,
         &IID_IEcoLab1,
         (void**)&pIEcoLab1);
+    printf("Get IEcoLab1 (aggregated): %s\n", (result == 0 && pIEcoLab1) ? "OK" : "FAIL");
     if (result != 0 || pIEcoLab1 == 0) {
         goto Release;
     }
+   
 
-    /* 2) Try obtaining other interfaces from each interface pointer */
-    (void)pICalcX->pVTbl->QueryInterface(pICalcX, &IID_IEcoCalculatorY, (void**)&pICalcY_FromX);
-    (void)pICalcX->pVTbl->QueryInterface(pICalcX, &IID_IEcoLab1, (void**)&pILab1_FromX);
-    (void)pICalcX->pVTbl->QueryInterface(pICalcX, &IID_IEcoUnknown, (void**)&pIUnk_FromX);
+    printf("\n--- QueryInterface checks ---\n");
 
-    (void)pICalcY->pVTbl->QueryInterface(pICalcY, &IID_IEcoCalculatorX, (void**)&pICalcX_FromY);
-    (void)pICalcY->pVTbl->QueryInterface(pICalcY, &IID_IEcoLab1, (void**)&pILab1_FromY);
-    (void)pICalcY->pVTbl->QueryInterface(pICalcY, &IID_IEcoUnknown, (void**)&pIUnk_FromY);
+    result = pICalcX->pVTbl->QueryInterface(pICalcX, &IID_IEcoCalculatorY, (void**)&pICalcY_FromX);
+    printf("X -> Y: %s\n", (result == 0 && pICalcY_FromX) ? "OK" : "FAIL");
 
-    (void)pIEcoLab1->pVTbl->QueryInterface(pIEcoLab1, &IID_IEcoCalculatorX, (void**)&pICalcX_FromLab1);
-    (void)pIEcoLab1->pVTbl->QueryInterface(pIEcoLab1, &IID_IEcoCalculatorY, (void**)&pICalcY_FromLab1);
-    (void)pIEcoLab1->pVTbl->QueryInterface(pIEcoLab1, &IID_IEcoUnknown, (void**)&pIUnk_FromLab1);
+    result = pICalcX->pVTbl->QueryInterface(pICalcX, &IID_IEcoLab1, (void**)&pILab1_FromX);
+    printf("X -> Lab1: %s\n", (result == 0 && pILab1_FromX) ? "OK" : "FAIL");
 
-    /* Smoke usage */
-    (void)pICalcX->pVTbl->Addition(pICalcX, 2, 3);
-    (void)pICalcY->pVTbl->Multiplication(pICalcY, 4, 5);
+    result = pICalcY->pVTbl->QueryInterface(pICalcY, &IID_IEcoCalculatorX, (void**)&pICalcX_FromY);
+    printf("Y -> X: %s\n", (result == 0 && pICalcX_FromY) ? "OK" : "FAIL");
 
+    result = pICalcY->pVTbl->QueryInterface(pICalcY, &IID_IEcoLab1, (void**)&pILab1_FromY);
+    printf("Y -> Lab1: %s\n", (result == 0 && pILab1_FromY) ? "OK" : "FAIL");
+
+    result = pIEcoLab1->pVTbl->QueryInterface(pIEcoLab1, &IID_IEcoCalculatorX, (void**)&pICalcX_FromLab1);
+    printf("Lab1 -> X: %s\n", (result == 0 && pICalcX_FromLab1) ? "OK" : "FAIL");
+
+    result = pIEcoLab1->pVTbl->QueryInterface(pIEcoLab1, &IID_IEcoCalculatorY, (void**)&pICalcY_FromLab1);
+    printf("Lab1 -> Y: %s\n", (result == 0 && pICalcY_FromLab1) ? "OK" : "FAIL");
+
+    printf("\n--- Smoke test ---\n");
+
+    if (pICalcX) {
+        int32_t sum = pICalcX->pVTbl->Addition(pICalcX, 2, 3);
+        printf("Addition(2,3) = %d\n", sum);
+    }
+
+    if (pICalcY) {
+        int32_t mul = pICalcY->pVTbl->Multiplication(pICalcY, 4, 5);
+        printf("Multiplication(4,5) = %d\n", mul);
+    }
+
+    printf("\n=== TEST FINISHED ===\n");
     result = ERR_ECO_SUCCESES;
 
 Release:
