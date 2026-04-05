@@ -10,22 +10,13 @@
 #include "IEcoCalculatorX.h"
 #include "IEcoCalculatorY.h"
 
+#include "IdEcoLab2.h"
 #include "IdEcoLab1.h"
 #include "IdEcoCalculatorA.h"
 #include "IdEcoCalculatorB.h"
 #include "IdEcoCalculatorD.h"
 #include "IdEcoCalculatorE.h"
 
-/* EcoLab2 CID = {F87CD666-E631-4B33-B2B4-508FDCD4BE15} */
-static const UGUID CID_EcoLab2 = {
-    0x01,
-    0x10,
-    {0xF8, 0x7C, 0xD6, 0x66, 0xE6, 0x31, 0x4B, 0x33, 0xB2, 0xB4, 0x50, 0x8F, 0xDC, 0xD4, 0xBE, 0x15}
-};
-
-#ifdef ECO_LIB
-extern IEcoComponentFactory* GetIEcoComponentFactoryPtr_F87CD666E6314B33B2B4508FDCD4BE15;
-#endif
 
 int16_t EcoMain(IEcoUnknown* pIUnk) {
     int16_t result = ERR_ECO_POINTER;
@@ -87,21 +78,21 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
         goto Release;
     }
 
-    result = pIBus->pVTbl->RegisterComponent(
-        pIBus,
-        &CID_EcoCalculatorB,
-        (IEcoUnknown*)GetIEcoComponentFactoryPtr_AE202E543CE54550899603BD70C62565);
-    if (result != 0) {
-        goto Release;
-    }
+    // result = pIBus->pVTbl->RegisterComponent(
+    //     pIBus,
+    //     &CID_EcoCalculatorB,
+    //     (IEcoUnknown*)GetIEcoComponentFactoryPtr_AE202E543CE54550899603BD70C62565);
+    // if (result != 0) {
+    //     goto Release;
+    // }
 
-    result = pIBus->pVTbl->RegisterComponent(
-        pIBus,
-        &CID_EcoCalculatorD,
-        (IEcoUnknown*)GetIEcoComponentFactoryPtr_3A8E44677E82475CB4A3719ED8397E61);
-    if (result != 0) {
-        goto Release;
-    }
+    // result = pIBus->pVTbl->RegisterComponent(
+    //     pIBus,
+    //     &CID_EcoCalculatorD,
+    //     (IEcoUnknown*)GetIEcoComponentFactoryPtr_3A8E44677E82475CB4A3719ED8397E61);
+    // if (result != 0) {
+    //     goto Release;
+    // }
 
     result = pIBus->pVTbl->RegisterComponent(
         pIBus,

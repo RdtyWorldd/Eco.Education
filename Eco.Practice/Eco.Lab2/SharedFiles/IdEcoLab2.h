@@ -25,7 +25,6 @@
 #define __ID_ECOLAB2_H__
 
 #include "IEcoBase1.h"
-#include "IEcoLab2.h"
 
 /* EcoLab2 CID = {F87CD666-E631-4B33-B2B4-508FDCD4BE15} */
 #ifndef __CID_EcoLab2
