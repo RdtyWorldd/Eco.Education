@@ -90,22 +90,22 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
     // }
     // printf("EcoCalculatorB: %s\n", result == 0 ? "OK" : "FAIL");
 
-    // result = pIBus->pVTbl->RegisterComponent(
-    //     pIBus,
-    //     &CID_EcoCalculatorD,
-    //     (IEcoUnknown*)GetIEcoComponentFactoryPtr_3A8E44677E82475CB4A3719ED8397E61);
-    // if (result != 0) {
-    //     goto Release;
-    // }
-    // printf("EcoCalculatorD: %s\n", result == 0 ? "OK" : "FAIL");
-
     result = pIBus->pVTbl->RegisterComponent(
         pIBus,
-        &CID_EcoCalculatorE,
-        (IEcoUnknown*)GetIEcoComponentFactoryPtr_872FEF1DE3314B87AD44D1E7C232C2F0);
+        &CID_EcoCalculatorD,
+        (IEcoUnknown*)GetIEcoComponentFactoryPtr_3A8E44677E82475CB4A3719ED8397E61);
     if (result != 0) {
         goto Release;
     }
+    printf("EcoCalculatorD: %s\n", result == 0 ? "OK" : "FAIL");
+
+    // result = pIBus->pVTbl->RegisterComponent(
+    //     pIBus,
+    //     &CID_EcoCalculatorE,
+    //     (IEcoUnknown*)GetIEcoComponentFactoryPtr_872FEF1DE3314B87AD44D1E7C232C2F0);
+    // if (result != 0) {
+    //     goto Release;
+    // }
     printf("EcoCalculatorE: %s\n", result == 0 ? "OK" : "FAIL");
 #endif
 

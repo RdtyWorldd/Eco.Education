@@ -41,6 +41,10 @@ static int16_t ECOCALLMETHOD CEcoLab1_QueryInterface(/* in */ IEcoLab1Ptr_t me, 
         return ERR_ECO_POINTER;
     }
 
+    if (pCMe->m_pIUnkOuter != (IEcoUnknown*)&pCMe->m_pVTblINondelegatingUnk) {
+        return pCMe->m_pIUnkOuter->pVTbl->QueryInterface(pCMe->m_pIUnkOuter, riid, ppv);
+    }
+
     /* Проверка и получение запрошенного интерфейса */
     if ( IsEqualUGUID(riid, &IID_IEcoLab1) ) {
         *ppv = &pCMe->m_pVTblIEcoLab1;
@@ -76,6 +80,10 @@ static uint32_t ECOCALLMETHOD CEcoLab1_AddRef(/* in */ IEcoLab1Ptr_t me) {
         return -1; /* ERR_ECO_POINTER */
     }
 
+    if (pCMe->m_pIUnkOuter != (IEcoUnknown*)&pCMe->m_pVTblINondelegatingUnk) {
+        return pCMe->m_pIUnkOuter->pVTbl->AddRef(pCMe->m_pIUnkOuter);
+    }
+
     return ++pCMe->m_cRef;
 }
 
@@ -96,6 +104,10 @@ static uint32_t ECOCALLMETHOD CEcoLab1_Release(/* in */ IEcoLab1Ptr_t me) {
     /* Проверка указателя */
     if (me == 0 ) {
         return -1; /* ERR_ECO_POINTER */
+    }
+
+    if (pCMe->m_pIUnkOuter != (IEcoUnknown*)&pCMe->m_pVTblINondelegatingUnk) {
+        return pCMe->m_pIUnkOuter->pVTbl->Release(pCMe->m_pIUnkOuter);
     }
 
     /* Уменьшение счетчика ссылок на компонент */
@@ -169,9 +181,6 @@ int16_t ECOCALLMETHOD initCEcoLab1(/*in*/ IEcoLab1Ptr_t me, /* in */ struct IEco
         return result;
     }
 
-    /* Сохранение указателя на системный интерфейс */
-    pCMe->m_pISys = (IEcoSystem1*)pIUnkSystem;
-
     /* Получение интерфейса для работы с интерфейсной шиной */
     result = pCMe->m_pISys->pVTbl->QueryInterface(pCMe->m_pISys, &IID_IEcoInterfaceBus1, (void **)&pIBus);
 
@@ -179,11 +188,6 @@ int16_t ECOCALLMETHOD initCEcoLab1(/*in*/ IEcoLab1Ptr_t me, /* in */ struct IEco
     if (me == 0 ) {
         return result;
     }
-
-    /* Сохранение указателя на системный интерфейс */
-    pCMe->m_pISys = (IEcoSystem1*)pIUnkSystem;
-
-
 
     /* Освобождение */
     pIBus->pVTbl->Release(pIBus);
