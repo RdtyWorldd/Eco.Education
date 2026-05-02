@@ -41,20 +41,7 @@ static int16_t ECOCALLMETHOD CEcoLab1_QueryInterface(/* in */ IEcoLab1Ptr_t me, 
         return ERR_ECO_POINTER;
     }
 
-    /* Проверка и получение запрошенного интерфейса */
-    if ( IsEqualUGUID(riid, &IID_IEcoLab1) ) {
-        *ppv = &pCMe->m_pVTblIEcoLab1;
-        pCMe->m_pVTblIEcoLab1->AddRef((IEcoLab1*)pCMe);
-    }
-    else if ( IsEqualUGUID(riid, &IID_IEcoUnknown) ) {
-        *ppv = &pCMe->m_pVTblIEcoLab1;
-        pCMe->m_pVTblIEcoLab1->AddRef((IEcoLab1*)pCMe);
-    }
-    else {
-        *ppv = 0;
-        return ERR_ECO_NOINTERFACE;
-    }
-    return ERR_ECO_SUCCESES;
+    return pCMe->m_pIUnkOuter->pVTbl->QueryInterface(pCMe->m_pIUnkOuter, riid, ppv);
 }
 
 /*
@@ -74,6 +61,10 @@ static uint32_t ECOCALLMETHOD CEcoLab1_AddRef(/* in */ IEcoLab1Ptr_t me) {
     /* Проверка указателя */
     if (me == 0 ) {
         return -1; /* ERR_ECO_POINTER */
+    }
+
+    if (pCMe->m_pIUnkOuter != (IEcoUnknown*)&pCMe->m_pVTblINondelegatingUnk) {
+        return pCMe->m_pIUnkOuter->pVTbl->AddRef(pCMe->m_pIUnkOuter);
     }
 
     return ++pCMe->m_cRef;
@@ -96,6 +87,10 @@ static uint32_t ECOCALLMETHOD CEcoLab1_Release(/* in */ IEcoLab1Ptr_t me) {
     /* Проверка указателя */
     if (me == 0 ) {
         return -1; /* ERR_ECO_POINTER */
+    }
+
+    if (pCMe->m_pIUnkOuter != (IEcoUnknown*)&pCMe->m_pVTblINondelegatingUnk) {
+        return pCMe->m_pIUnkOuter->pVTbl->Release(pCMe->m_pIUnkOuter);
     }
 
     /* Уменьшение счетчика ссылок на компонент */
@@ -146,49 +141,6 @@ static void* ECOCALLMETHOD CEcoLab1_MyBsearch(/* in */ IEcoLab1Ptr_t me, /* in *
         }
     }
     return NULL;
-}
-
-/*
- *
- * <сводка>
- *   Функция Init
- * </сводка>
- *
- * <описание>
- *   Функция инициализации экземпляра
- * </описание>
- *
- */
-int16_t ECOCALLMETHOD initCEcoLab1(/*in*/ IEcoLab1Ptr_t me, /* in */ struct IEcoUnknown *pIUnkSystem) {
-    CEcoLab1* pCMe = (CEcoLab1*)me;
-    IEcoInterfaceBus1* pIBus = 0;
-    int16_t result = -1;
-
-    /* Проверка указателей */
-    if (me == 0 ) {
-        return result;
-    }
-
-    /* Сохранение указателя на системный интерфейс */
-    pCMe->m_pISys = (IEcoSystem1*)pIUnkSystem;
-
-    /* Получение интерфейса для работы с интерфейсной шиной */
-    result = pCMe->m_pISys->pVTbl->QueryInterface(pCMe->m_pISys, &IID_IEcoInterfaceBus1, (void **)&pIBus);
-
-    /* Проверка указателей */
-    if (me == 0 ) {
-        return result;
-    }
-
-    /* Сохранение указателя на системный интерфейс */
-    pCMe->m_pISys = (IEcoSystem1*)pIUnkSystem;
-
-
-
-    /* Освобождение */
-    pIBus->pVTbl->Release(pIBus);
-
-    return result;
 }
 
 /*
@@ -284,12 +236,42 @@ IEcoLab1VTbl g_x277FC00C35624096AFCFC125B94EEC90VTbl = {
     CEcoLab1_MyBsearch
 };
 
-IEcoUnknownVTbl g_x000000000000000000000000000000AAVTblB = {
+IEcoUnknownVTbl g_x000000000000000000000000000000AAVTblEcoLab1 = {
     CEcoLab1_NondelegatingQueryInterface,
     CEcoLab1_NondelegatingAddRef,
     CEcoLab1_NondelegatingRelease
 };
 
+
+/*
+ *
+ * <сводка>
+ *   Функция Init
+ * </сводка>
+ *
+ * <описание>
+ *   Функция инициализации экземпляра
+ * </описание>
+ *
+ */
+int16_t ECOCALLMETHOD initCEcoLab1(/*in*/ IEcoLab1Ptr_t me, /* in */ struct IEcoUnknown *pIUnkSystem) {
+    CEcoLab1* pCMe = (CEcoLab1*)(me - sizeof(IEcoUnknownVTbl*));
+    IEcoInterfaceBus1* pIBus = 0;
+    int16_t result = -1;
+
+    /* Проверка указателей */
+    if (me == 0 ) {
+        return result;
+    }
+
+    /* Получение интерфейса для работы с интерфейсной шиной */
+    result = pCMe->m_pISys->pVTbl->QueryInterface(pCMe->m_pISys, &IID_IEcoInterfaceBus1, (void **)&pIBus);
+
+    /* Освобождение */
+    pIBus->pVTbl->Release(pIBus);
+
+    return result;
+}
 
 /*
  *
@@ -360,7 +342,7 @@ int16_t ECOCALLMETHOD createCEcoLab1(/* in */ IEcoUnknown* pIUnkSystem, /* in */
     pCMe->m_pVTblIEcoLab1 = &g_x277FC00C35624096AFCFC125B94EEC90VTbl;
 
     /* Неделегирующий IEcoUnknown */
-    pCMe->m_pVTblINondelegatingUnk = &g_x000000000000000000000000000000AAVTblB;
+    pCMe->m_pVTblINondelegatingUnk = &g_x000000000000000000000000000000AAVTblEcoLab1;
 
     /* Агрегация */
     if (pIUnkOuter != 0) {

@@ -17,6 +17,9 @@
 #include "IdEcoCalculatorD.h"
 #include "IdEcoCalculatorE.h"
 
+int compare_int(const void *a, const void *b) {
+    return (*(int*)a - *(int*)b);
+}
 
 int16_t EcoMain(IEcoUnknown* pIUnk) {
     int16_t result = ERR_ECO_POINTER;
@@ -90,22 +93,22 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
     // }
     // printf("EcoCalculatorB: %s\n", result == 0 ? "OK" : "FAIL");
 
-    // result = pIBus->pVTbl->RegisterComponent(
-    //     pIBus,
-    //     &CID_EcoCalculatorD,
-    //     (IEcoUnknown*)GetIEcoComponentFactoryPtr_3A8E44677E82475CB4A3719ED8397E61);
-    // if (result != 0) {
-    //     goto Release;
-    // }
-    // printf("EcoCalculatorD: %s\n", result == 0 ? "OK" : "FAIL");
-
     result = pIBus->pVTbl->RegisterComponent(
         pIBus,
-        &CID_EcoCalculatorE,
-        (IEcoUnknown*)GetIEcoComponentFactoryPtr_872FEF1DE3314B87AD44D1E7C232C2F0);
+        &CID_EcoCalculatorD,
+        (IEcoUnknown*)GetIEcoComponentFactoryPtr_3A8E44677E82475CB4A3719ED8397E61);
     if (result != 0) {
         goto Release;
     }
+    printf("EcoCalculatorD: %s\n", result == 0 ? "OK" : "FAIL");
+
+    // result = pIBus->pVTbl->RegisterComponent(
+    //     pIBus,
+    //     &CID_EcoCalculatorE,
+    //     (IEcoUnknown*)GetIEcoComponentFactoryPtr_872FEF1DE3314B87AD44D1E7C232C2F0);
+    // if (result != 0) {
+    //     goto Release;
+    // }
     printf("EcoCalculatorE: %s\n", result == 0 ? "OK" : "FAIL");
 #endif
 
@@ -175,6 +178,13 @@ int16_t EcoMain(IEcoUnknown* pIUnk) {
     if (pICalcY) {
         int32_t mul = pICalcY->pVTbl->Multiplication(pICalcY, 4, 5);
         printf("Multiplication(4,5) = %d\n", mul);
+    }
+    if (pIEcoLab1) {
+        int arr[] = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35};
+        uint32_t nmemb = sizeof(arr) / sizeof(arr[0]);
+        int key = 15;
+        int* found = (int*)pIEcoLab1->pVTbl->MyBsearch(pIEcoLab1, &key, arr, nmemb, sizeof(int), compare_int);
+        printf("Bsearch key = 15 on position: = %d\n", (found - arr));
     }
 
     printf("\n=== TEST FINISHED ===\n");
