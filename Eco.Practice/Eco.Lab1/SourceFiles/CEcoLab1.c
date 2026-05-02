@@ -146,36 +146,6 @@ static void* ECOCALLMETHOD CEcoLab1_MyBsearch(/* in */ IEcoLab1Ptr_t me, /* in *
 /*
  *
  * <сводка>
- *   Функция Init
- * </сводка>
- *
- * <описание>
- *   Функция инициализации экземпляра
- * </описание>
- *
- */
-int16_t ECOCALLMETHOD initCEcoLab1(/*in*/ IEcoLab1Ptr_t me, /* in */ struct IEcoUnknown *pIUnkSystem) {
-    CEcoLab1* pCMe = (CEcoLab1*)(me - sizeof(IEcoUnknownVTbl*));
-    IEcoInterfaceBus1* pIBus = 0;
-    int16_t result = -1;
-
-    /* Проверка указателей */
-    if (me == 0 ) {
-        return result;
-    }
-
-    /* Получение интерфейса для работы с интерфейсной шиной */
-    result = pCMe->m_pISys->pVTbl->QueryInterface(pCMe->m_pISys, &IID_IEcoInterfaceBus1, (void **)&pIBus);
-
-    /* Освобождение */
-    pIBus->pVTbl->Release(pIBus);
-
-    return result;
-}
-
-/*
- *
- * <сводка>
  *   Функция NondelegatingQueryInterface
  * </сводка>
  *
@@ -272,6 +242,36 @@ IEcoUnknownVTbl g_x000000000000000000000000000000AAVTblEcoLab1 = {
     CEcoLab1_NondelegatingRelease
 };
 
+
+/*
+ *
+ * <сводка>
+ *   Функция Init
+ * </сводка>
+ *
+ * <описание>
+ *   Функция инициализации экземпляра
+ * </описание>
+ *
+ */
+int16_t ECOCALLMETHOD initCEcoLab1(/*in*/ IEcoLab1Ptr_t me, /* in */ struct IEcoUnknown *pIUnkSystem) {
+    CEcoLab1* pCMe = (CEcoLab1*)(me - sizeof(IEcoUnknownVTbl*));
+    IEcoInterfaceBus1* pIBus = 0;
+    int16_t result = -1;
+
+    /* Проверка указателей */
+    if (me == 0 ) {
+        return result;
+    }
+
+    /* Получение интерфейса для работы с интерфейсной шиной */
+    result = pCMe->m_pISys->pVTbl->QueryInterface(pCMe->m_pISys, &IID_IEcoInterfaceBus1, (void **)&pIBus);
+
+    /* Освобождение */
+    pIBus->pVTbl->Release(pIBus);
+
+    return result;
+}
 
 /*
  *

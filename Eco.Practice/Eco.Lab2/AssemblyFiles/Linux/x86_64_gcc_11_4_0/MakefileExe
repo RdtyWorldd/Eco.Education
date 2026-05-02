@@ -1,5 +1,5 @@
 ifeq ($(TARGET), 1)
-OUT_TARGET = EcoLab1
+OUT_TARGET = EcoLab2
 ifeq ($(DEBUG), 1)
 CONFIG_TARGET = StaticDebug
 CCFLAGS_TARGET = -Wall -O3 -g -DECO_LIB
