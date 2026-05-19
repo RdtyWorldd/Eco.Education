@@ -1,0 +1,46 @@
+﻿Build started 19.05.2026 15:46:07.
+     1>Project "E:\Eco.Lab3\AssemblyFiles\Windows\VisualStudio_10\Eco.Lab1.vcxproj" on node 2 (rebuild target(s)).
+     1>_PrepareForClean:
+         Deleting file "Eco.Lab1\StaticDebug\Eco.Lab1.lastbuildstate".
+       InitializeBuildStatus:
+         Creating "Eco.Lab1\StaticDebug\Eco.Lab1.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\..\HeaderFiles /I..\..\..\SharedFiles /IC:\Users\Rdty\Desktop\peerf_practice\libs\Eco.Framework_20250429\Eco.Core1\SharedFiles /IC:\Users\Rdty\Desktop\peerf_practice\libs\Eco.Framework_20250429\Eco.InterfaceBus1\SharedFiles /IC:\Users\Rdty\Desktop\peerf_practice\libs\Eco.Framework_20250429\Eco.System1\SharedFiles /IC:\Users\Rdty\Desktop\peerf_practice\libs\Eco.Framework_20250429\Eco.MemoryManager1\SharedFiles /IC:\Users\Rdty\Desktop\peerf_practice\libs\Eco.Framework_20250429\Eco.FileSystemManagement1\SharedFiles /IC:\Users\Rdty\Desktop\peerf_practice\libs\Eco.Framework_20250429\Eco.List1\SharedFiles /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D ECO_WINDOWS /D ECO_X86_32 /D ECO_WIN32 /D UGUID_UTILITY /D ECO_LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Eco.Lab1\StaticDebug\\" /Fd"Eco.Lab1\StaticDebug\vc100.pdb" /Gz /TC /analyze- /errorReport:prompt ..\..\..\SourceFiles\CEcoLab1.c ..\..\..\SourceFiles\CEcoLab1ConnectionPoint.c ..\..\..\SourceFiles\CEcoLab1EnumConnectionPoints.c ..\..\..\SourceFiles\CEcoLab1EnumConnections.c ..\..\..\SourceFiles\CEcoLab1Factory.c
+         CEcoLab1Factory.c
+         CEcoLab1EnumConnections.c
+         CEcoLab1EnumConnectionPoints.c
+         CEcoLab1ConnectionPoint.c
+         CEcoLab1.c
+     1>e:\eco.lab3\sourcefiles\cecolab1.c(124): warning C4133: 'function' : incompatible types - from 'IEcoUnknown *' to 'IEcoLab1EventFirst *'
+     1>e:\eco.lab3\sourcefiles\cecolab1.c(127): warning C4133: 'function' : incompatible types - from 'IEcoUnknown *' to 'IEcoLab1EventSecond *'
+     1>e:\eco.lab3\sourcefiles\cecolab1.c(201): warning C4133: 'function' : incompatible types - from 'CEcoLab1ConnectionPoint *' to 'IEcoConnectionPoint *'
+     1>e:\eco.lab3\sourcefiles\cecolab1.c(204): warning C4133: 'function' : incompatible types - from 'CEcoLab1ConnectionPoint *' to 'IEcoConnectionPoint *'
+     1>e:\eco.lab3\sourcefiles\cecolab1.c(192): warning C4101: 'cd' : unreferenced local variable
+     1>e:\eco.lab3\sourcefiles\cecolab1.c(238): warning C4133: 'function' : incompatible types - from 'CEcoLab1 *' to 'IEcoLab1 *'
+     1>e:\eco.lab3\sourcefiles\cecolab1.c(246): warning C4133: 'function' : incompatible types - from 'CEcoLab1 *' to 'IEcoLab1 *'
+     1>e:\eco.lab3\sourcefiles\cecolab1.c(361): warning C4047: 'function' : 'IEcoConnectionPoint *' differs in levels of indirection from 'IEcoConnectionPointVTbl **'
+     1>e:\eco.lab3\sourcefiles\cecolab1.c(361): warning C4024: 'createCEcoLab1EnumConnectionPoints' : different types for formal and actual parameter 2
+     1>e:\eco.lab3\sourcefiles\cecolab1.c(404): warning C4047: 'function' : 'IEcoConnectionPoint *' differs in levels of indirection from 'IEcoConnectionPointVTbl **'
+     1>e:\eco.lab3\sourcefiles\cecolab1.c(404): warning C4024: 'function through pointer' : different types for formal and actual parameter 1
+     1>e:\eco.lab3\sourcefiles\cecolab1.c(405): warning C4047: '=' : 'IEcoConnectionPoint *' differs in levels of indirection from 'IEcoConnectionPointVTbl **'
+     1>e:\eco.lab3\sourcefiles\cecolab1.c(447): warning C4047: 'function' : 'IEcoConnectionPointContainer *' differs in levels of indirection from 'IEcoConnectionPointContainerVTbl **'
+     1>e:\eco.lab3\sourcefiles\cecolab1.c(447): warning C4024: 'createCEcoLab1ConnectionPoint' : different types for formal and actual parameter 2
+     1>e:\eco.lab3\sourcefiles\cecolab1.c(452): warning C4047: 'function' : 'IEcoConnectionPointContainer *' differs in levels of indirection from 'IEcoConnectionPointContainerVTbl **'
+     1>e:\eco.lab3\sourcefiles\cecolab1.c(452): warning C4024: 'createCEcoLab1ConnectionPoint' : different types for formal and actual parameter 2
+         Generating Code...
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1151,5): warning MSB8012: TargetPath(E:\Eco.Lab3\AssemblyFiles\Windows\VisualStudio_10\Eco.Lab1\StaticDebug\1F5DF16EE1BF43B999A434ED38FE8F3A.lib) does not match the Library's OutputFile property value (E:\Eco.Lab3\BuildFiles\Windows\x86\StaticDebug\1F5DF16EE1BF43B999A434ED38FE8F3A.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"..\..\..\BuildFiles\Windows\x86\StaticDebug\1F5DF16EE1BF43B999A434ED38FE8F3A.lib" /NOLOGO Eco.Lab1\StaticDebug\CEcoLab1.obj
+         Eco.Lab1\StaticDebug\CEcoLab1ConnectionPoint.obj
+         Eco.Lab1\StaticDebug\CEcoLab1EnumConnectionPoints.obj
+         Eco.Lab1\StaticDebug\CEcoLab1EnumConnections.obj
+         Eco.Lab1\StaticDebug\CEcoLab1Factory.obj
+         Eco.Lab1.vcxproj -> E:\Eco.Lab3\AssemblyFiles\Windows\VisualStudio_10\Eco.Lab1\StaticDebug\1F5DF16EE1BF43B999A434ED38FE8F3A.lib
+       FinalizeBuildStatus:
+         Deleting file "Eco.Lab1\StaticDebug\Eco.Lab1.unsuccessfulbuild".
+         Touching "Eco.Lab1\StaticDebug\Eco.Lab1.lastbuildstate".
+     1>Done Building Project "E:\Eco.Lab3\AssemblyFiles\Windows\VisualStudio_10\Eco.Lab1.vcxproj" (rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.64
